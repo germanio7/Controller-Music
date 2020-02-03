@@ -8,8 +8,14 @@
             <form method="POST" action="/musik" enctype="multipart/form-data">
                 @csrf
                 <div class="card">
+
                     <div class="card-header">Upload Music</div>
                     <div class="card-body">
+                        @if (session('alert'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('alert') }}
+                        </div>
+                        @endif
                         <div class="form-group">
                             <input type="file" class="form-control-file" id="audio" name="audio">
                         </div>

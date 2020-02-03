@@ -6,6 +6,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+                @if (session('alert'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('alert') }}
+                </div>
+                @endif
                 <div class="card-header">Songs List</div>
                 <div class="card-body">
                     <a class="btn btn-success" href="{{route('musik.create')}}">Upload Song</a>

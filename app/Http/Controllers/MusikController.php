@@ -27,18 +27,22 @@ class MusikController extends Controller
 
     public function store(Request $request)
     {
-        $name = $request->file('audio')->getClientOriginalName();
+        if ($request->file('audio')) {
+            $name = $request->file('audio')->getClientOriginalName();
 
-        $request->file('audio')->move(public_path('songs/'), $name);
-
-        return redirect()->action('MusikController@index');
+            if ($request->file('audio')->getClientOriginalExtension() == 'mp3') {
+                $request->file('audio')->move(public_path('songs/'), $name);
+                return redirect()->action('MusikController@index')->with('alert', 'File Upload!');
+            } else {
+                return redirect()->back()->with('alert', 'Only files .mp3');
+            }
+        } else {
+            return redirect()->back()->with('alert', 'Select File!');
+        }
     }
 
     public function play($song)
     {
-        // $resp = new BinaryFileResponse(public_path('songs/' . $song));
-        // return $resp;
-
         $file = public_path('songs/' . $song);
 
         return response()->file($file);
