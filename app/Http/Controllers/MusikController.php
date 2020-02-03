@@ -45,7 +45,7 @@ class MusikController extends Controller
     {
         $file = public_path('songs/' . $song);
 
-        return response(['headers' => ''])->file($file);
+        return response()->file($file);
     }
 
     public function copy($song)
