@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::resource('musik', 'MusikController');
 Route::get('/play/{song}', 'MusikController@play')->name('play');
-Route::get('/copy/{song}', 'MusikController@copy')->name('copy');
-Route::get('/eliminar/{song}', 'MusikController@eliminar')->name('eliminar');
+// Route::get('/copy/{song}', 'MusikController@copy')->name('copy');
+// Route::get('/eliminar/{song}', 'MusikController@eliminar')->name('eliminar');
 Route::get('/descargar/{song}', 'MusikController@descargar')->name('descargar');
 Route::post('/download', 'MusikController@download')->name('download');
