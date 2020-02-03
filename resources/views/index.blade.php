@@ -45,6 +45,11 @@
                 @csrf
                 <div class="card">
                     <div class="card-header">Download Youtube</div>
+                    @if (session('youtube'))
+                    <div class="alert alert-warning" role="alert">
+                        {{ session('youtube') }}
+                    </div>
+                    @endif
                     <div class="card-body">
                         <input type="text" id="link" name="link" placeholder="Ingrese Link Youtube" class="form-control">
                     </div>

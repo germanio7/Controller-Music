@@ -45,7 +45,7 @@ class MusikController extends Controller
     {
         $file = public_path('songs/' . $song);
 
-        return response()->file($file);
+        return response(['headers' => ''])->file($file);
     }
 
     public function copy($song)
@@ -72,25 +72,25 @@ class MusikController extends Controller
 
     public function download(Request $request)
     {
-        $vid = substr($request->get('link'), -11);
+        // $vid = substr($request->get('link'), -11);
 
-        parse_str(file_get_contents("http://youtube.com/get_video_info?video_id=" . $vid), $info);
+        // parse_str(file_get_contents("http://youtube.com/get_video_info?video_id=" . $vid), $info);
 
-        $aux = $info['player_response'];
+        // $aux = $info['player_response'];
 
-        $arr = json_decode($aux, true);
+        // $arr = json_decode($aux, true);
 
-        parse_str($arr['streamingData']['formats'][0]['cipher'], $variable);
+        // parse_str($arr['streamingData']['formats'][0]['cipher'], $variable);
 
-        return $variable;
+        // return $variable;
 
-        $var = [];
+        // $var = [];
 
-        foreach ($arr['streamingData']['adaptiveFormats'] as $item) {
-            if ($item['itag'] == 140) {
-                $var = $item;
-            };
-        }
+        // foreach ($arr['streamingData']['adaptiveFormats'] as $item) {
+        //     if ($item['itag'] == 140) {
+        //         $var = $item;
+        //     };
+        // }
 
         // $vformat = $arr['streamingData']['formats'][0]['mimeType'];
 
@@ -98,7 +98,7 @@ class MusikController extends Controller
 
         // parse_str($arr['streamingData']['formats'][0]['cipher'], $cipher);
 
-        parse_str($var['cipher'], $cipher);
+        // parse_str($var['cipher'], $cipher);
 
         // return $cipher['url'];
 
@@ -118,5 +118,6 @@ class MusikController extends Controller
         // $destino1 = fopen(public_path('nuevo/' . 'descargando.mp4'), 'w');
         // stream_copy_to_stream($origen, $destino1);
         // return redirect()->action('MusikController@index');
+        return redirect()->back()->with('youtube', 'Coming to soon!');
     }
 }
