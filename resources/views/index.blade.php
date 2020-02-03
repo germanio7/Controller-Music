@@ -24,8 +24,8 @@
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <a class="btn btn-outline-primary" target="_blank" href="{{url('play/'.$song)}}">Listen</a>
                                         <a class="btn btn-outline-success" href="{{url('descargar/'.$song)}}">Download</a>
-                                        <a class="btn btn-outline-warning" href="{{url('copy/'.$song)}}">Copy</a>
-                                        <a class="btn btn-outline-danger" href="{{url('eliminar/'.$song)}}">Delete</a>
+                                        <!-- <a class="btn btn-outline-warning" href="{{url('copy/'.$song)}}">Copy</a>
+                                        <a class="btn btn-outline-danger" href="{{url('eliminar/'.$song)}}">Delete</a> -->
                                     </div>
                                 </td>
                             </tr>
