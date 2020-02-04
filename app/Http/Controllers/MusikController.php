@@ -72,44 +72,81 @@ class MusikController extends Controller
 
     public function download(Request $request)
     {
-        $vid = substr($request->get('link'), -11);
+        if ($request->get('link')) {
 
-        parse_str(file_get_contents("http://youtube.com/get_video_info?video_id=" . $vid), $info);
+            $vid = substr($request->get('link'), -11);
 
-        $aux = $info['player_response'];
+            parse_str(file_get_contents("http://youtube.com/get_video_info?video_id=" . $vid), $info);
 
-        $arr = json_decode($aux, true);
+            if (key_exists('player_response', $info)) {
+                $aux = $info['player_response'];
 
-        $nombre = $arr['videoDetails']['title'];
+                $arr = json_decode($aux, true);
 
-        $formats = $arr['streamingData']['adaptiveFormats'];
+                $nombre = $arr['videoDetails']['title'];
 
-        $url = '';
-        foreach ($formats as $forma) {
-            if ($forma['itag'] == 140) {
-                if (key_exists('cipher', $forma)) {
+                if (key_exists('streamingData', $arr)) {
+                    $formats = $arr['streamingData']['adaptiveFormats'];
 
-                    return redirect()->action('MusikController@index')->with('youtube', 'Not supported!');
+                    $url = '';
+                    foreach ($formats as $forma) {
+                        if ($forma['itag'] == 140) {
+                            if (key_exists('cipher', $forma)) {
 
-                    // parse_str($forma['cipher'], $aux);
-                    // $url = $aux['url'];
-                    // $sig = $aux['s'];
-                    // $file = fopen($url . '&signature=' . $sig, 'r');
-                    // return response()->download($file);
+                                // return redirect()->action('MusikController@index')->with('youtube', 'Not supported!');
+
+                                parse_str($forma['cipher'], $aux);
+                                // return $aux;
+                                $url = $aux['url'];
+                                $sp = $aux['sp'];
+                                $s = $aux['s'];
+
+                                // $map['url'] = "$url[url]&$url[sp]=" . $this->decipherSignature($url['s'], 0);
+
+                                $var = "$url&$sp=" . $s;
+
+                                // $subdomain = explode(".googlevideo.com", $var)[0];
+                                // $subdomain = explode("//", $subdomain)[1];
+                                // $var = str_replace($subdomain, 'redirector', $var);
+
+                                $origen = fopen($var, 'rb');
+                                $destino = fopen(public_path('songs/' . $nombre . '.mp3'), 'w');
+
+                                stream_copy_to_stream($origen, $destino);
+
+                                fclose($origen);
+                                fclose($destino);
+
+                                return response()->download(public_path('songs/' . $nombre . '.mp3'));
+                            } else {
+                                set_time_limit(300);
+
+                                $origen = fopen($forma['url'], 'rb');
+
+                                $destino = fopen(public_path('songs/' . $nombre . '.mp3'), 'w');
+
+                                stream_copy_to_stream($origen, $destino);
+
+                                fclose($origen);
+                                fclose($destino);
+
+                                return response()->download(public_path('songs/' . $nombre . '.mp3'));
+
+                                fclose($origen);
+                                fclose($destino);
+
+                                return redirect()->action('MusikController@index')->with('alert', 'File Download!');
+                            }
+                        }
+                    }
                 } else {
-                    set_time_limit(300);
-
-                    $origen = fopen($forma['url'], 'rb');
-                    $destino = fopen(public_path('songs/' . $nombre . '.mp3'), 'w');
-
-                    stream_copy_to_stream($origen, $destino);
-
-                    // fclose($origen);
-                    // fclose($destino);
-
-                    return redirect()->action('MusikController@index')->with('alert', 'File Download!');
+                    return redirect()->action('MusikController@index')->with('youtube', 'Not supported!');
                 }
+            } else {
+                return redirect()->back()->with('formato', 'Copy and paste the video link!');
             }
+        } else {
+            return redirect()->back()->with('vacio', 'The link cannot be empty!');
         }
     }
 }

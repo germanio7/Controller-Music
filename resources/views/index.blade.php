@@ -51,7 +51,17 @@
                     </div>
                     @endif
                     <div class="card-body">
+                        @if (session('vacio'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('vacio') }}
+                        </div>
+                        @endif
                         <input type="text" id="link" name="link" placeholder="Ingrese Link Youtube" class="form-control">
+                        @if (session('formato'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('formato') }}
+                        </div>
+                        @endif
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-warning">
