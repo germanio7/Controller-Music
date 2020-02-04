@@ -72,52 +72,44 @@ class MusikController extends Controller
 
     public function download(Request $request)
     {
-        // $vid = substr($request->get('link'), -11);
+        $vid = substr($request->get('link'), -11);
 
-        // parse_str(file_get_contents("http://youtube.com/get_video_info?video_id=" . $vid), $info);
+        parse_str(file_get_contents("http://youtube.com/get_video_info?video_id=" . $vid), $info);
 
-        // $aux = $info['player_response'];
+        $aux = $info['player_response'];
 
-        // $arr = json_decode($aux, true);
+        $arr = json_decode($aux, true);
 
-        // parse_str($arr['streamingData']['formats'][0]['cipher'], $variable);
+        $nombre = $arr['videoDetails']['title'];
 
-        // return $variable;
+        $formats = $arr['streamingData']['adaptiveFormats'];
 
-        // $var = [];
+        $url = '';
+        foreach ($formats as $forma) {
+            if ($forma['itag'] == 140) {
+                if (key_exists('cipher', $forma)) {
 
-        // foreach ($arr['streamingData']['adaptiveFormats'] as $item) {
-        //     if ($item['itag'] == 140) {
-        //         $var = $item;
-        //     };
-        // }
+                    return redirect()->action('MusikController@index')->with('youtube', 'Not supported!');
 
-        // $vformat = $arr['streamingData']['formats'][0]['mimeType'];
+                    // parse_str($forma['cipher'], $aux);
+                    // $url = $aux['url'];
+                    // $sig = $aux['s'];
+                    // $file = fopen($url . '&signature=' . $sig, 'r');
+                    // return response()->download($file);
+                } else {
+                    set_time_limit(300);
 
-        // $cipher = $arr['streamingData']['formats'][0]['cipher'];
+                    $origen = fopen($forma['url'], 'rb');
+                    $destino = fopen(public_path('songs/' . $nombre . '.mp3'), 'w');
 
-        // parse_str($arr['streamingData']['formats'][0]['cipher'], $cipher);
+                    stream_copy_to_stream($origen, $destino);
 
-        // parse_str($var['cipher'], $cipher);
+                    // fclose($origen);
+                    // fclose($destino);
 
-        // return $cipher['url'];
-
-        // $aux = urldecode(urldecode($cipher));
-
-        // return explode('&', $aux);
-
-        // $url = 'https://r1---sn-uxaxjvh5gbxoupo5-jo9l.googlevideo.com/videoplayback?';
-        // $id = 'o-AE-0EAYSROR0U8jyoW8HpBPNRtd3vZDaWZLhsl2gZK5T';
-        // $signature = 'ILILgxI2wwRAtgC9DKtWqx2FehLi3ZE8hshADZbI4LugmX3s47N_5WotwCIGvvgTm2_j5PS4M1PHscT7JRnJx2Ta2c_82PwYT6DTLK';
-
-        // $cadena = $url . 'id=' . $id . '&signature=' . $signature;
-
-        // ------------------------------------------------------------------------------------------
-
-        // $origen   = fopen($cipher['url'], 'r');
-        // $destino1 = fopen(public_path('nuevo/' . 'descargando.mp4'), 'w');
-        // stream_copy_to_stream($origen, $destino1);
-        // return redirect()->action('MusikController@index');
-        return redirect()->back()->with('youtube', 'Coming to soon!');
+                    return redirect()->action('MusikController@index')->with('alert', 'File Download!');
+                }
+            }
+        }
     }
 }
