@@ -92,50 +92,17 @@ class MusikController extends Controller
                     foreach ($formats as $forma) {
                         if ($forma['itag'] == 140) {
                             if (key_exists('cipher', $forma)) {
-
-                                // return redirect()->action('MusikController@index')->with('youtube', 'Not supported!');
-
                                 parse_str($forma['cipher'], $aux);
-                                // return $aux;
                                 $url = $aux['url'];
                                 $sp = $aux['sp'];
                                 $s = $aux['s'];
-
-                                // $map['url'] = "$url[url]&$url[sp]=" . $this->decipherSignature($url['s'], 0);
-
-                                $var = "$url&$sp=" . $s;
-
-                                // $subdomain = explode(".googlevideo.com", $var)[0];
-                                // $subdomain = explode("//", $subdomain)[1];
-                                // $var = str_replace($subdomain, 'redirector', $var);
-
-                                $origen = fopen($var, 'rb');
-                                $destino = fopen(public_path('songs/' . $nombre . '.mp3'), 'w');
-
-                                stream_copy_to_stream($origen, $destino);
-
-                                fclose($origen);
-                                fclose($destino);
-
-                                return response()->download(public_path('songs/' . $nombre . '.mp3'));
+                                header("Content-Type: application/force-download");
+                                header("Content-Disposition: attachment; filename=\"$nombre.mp3\"");
+                                readfile($url);;
                             } else {
-                                set_time_limit(300);
-
-                                $origen = fopen($forma['url'], 'rb');
-
-                                $destino = fopen(public_path('songs/' . $nombre . '.mp3'), 'w');
-
-                                stream_copy_to_stream($origen, $destino);
-
-                                fclose($origen);
-                                fclose($destino);
-
-                                return response()->download(public_path('songs/' . $nombre . '.mp3'));
-
-                                fclose($origen);
-                                fclose($destino);
-
-                                return redirect()->action('MusikController@index')->with('alert', 'File Download!');
+                                header("Content-Type: application/force-download");
+                                header("Content-Disposition: attachment; filename=\"$nombre.mp3\"");
+                                readfile($forma['url']);
                             }
                         }
                     }

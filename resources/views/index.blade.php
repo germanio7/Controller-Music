@@ -44,7 +44,7 @@
             <form method="POST" action="/download" enctype="multipart/form-data">
                 @csrf
                 <div class="card">
-                    <div class="card-header">Download Youtube</div>
+                    <div class="card-header">Download Youtube (Beta)</div>
                     @if (session('youtube'))
                     <div class="alert alert-warning" role="alert">
                         {{ session('youtube') }}
