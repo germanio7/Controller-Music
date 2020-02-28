@@ -19,6 +19,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style>
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 70%;
+        }
+    </style>
 </head>
 
 <body>
@@ -44,6 +52,14 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <div class="container">
+            <footer>
+                <div class="footer">
+                    <iframe src="https://tunein.com/embed/player/s25905/" style="width:100%; height:100px;" scrolling="no" frameborder="no"></iframe>
+                </div>
+            </footer>
+        </div>
     </div>
 </body>
 
