@@ -23,29 +23,22 @@
     <style>
         .footer {
             bottom: 0;
-            width: 70%;
+            width: 100%;
         }
     </style>
 </head>
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'μs¡k') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <nav class="navbar navbar-dark bg-dark shadow-lg">
+            <a href="{{ url('/') }}" class="navbar-brand">
+                <img href="{{ url('/') }}" src="{{url('controller.png')}}" width="30" height="30" class="d-inline-block align-top" alt="">
+                Controller Musik
+            </a>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-                </div>
-            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         </nav>
 
         <main class="py-4">
@@ -56,6 +49,10 @@
             <footer>
                 <div class="footer">
                     <iframe src="https://tunein.com/embed/player/s25905/" style="width:100%; height:100px;" scrolling="no" frameborder="no"></iframe>
+                </div>
+
+                <div>
+                    <iframe src="https://tunein.com/embed/player/s6984/" style="width:100%; height:100px;" scrolling="no" frameborder="no"></iframe>
                 </div>
             </footer>
         </div>
