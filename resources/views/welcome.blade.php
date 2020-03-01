@@ -5,10 +5,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <link rel="icon" href="{{url('controller.png')}}" />
+
+    <title>
+        German IO
+    </title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 
     <!-- Styles -->
     <style>
@@ -70,11 +79,11 @@
     <div class="flex-center position-ref full-height">
         <div class="content">
             <div class="title m-b-md">
-                Controller Music!
+                German IO
             </div>
 
             <div class="row justify-content-center">
-                <a class="btn btn-success btn-lg" href="{{route('musik.index')}}">Go To</a>
+                <a class="btn btn-outline-success btn-lg" href="{{route('musik.index')}}">Ingresar</a>
             </div>
         </div>
     </div>

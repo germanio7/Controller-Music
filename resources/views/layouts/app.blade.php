@@ -8,7 +8,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'μs¡k') }}</title>
+    <title>{{ config('app.name', 'GermanIO') }}</title>
+
+    <link rel="icon" href="{{url('controller.png')}}" />
+
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -33,12 +36,8 @@
         <nav class="navbar navbar-dark bg-dark shadow-lg">
             <a href="{{ url('/') }}" class="navbar-brand">
                 <img href="{{ url('/') }}" src="{{url('controller.png')}}" width="30" height="30" class="d-inline-block align-top" alt="">
-                Controller Musik
+                German IO
             </a>
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
         </nav>
 
         <main class="py-4">
