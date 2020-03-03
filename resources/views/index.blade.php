@@ -72,6 +72,10 @@
             </form>
         </div>
     </div>
+
+    <div class="display-4">
+        Visitantes: {{$cant}}
+    </div>
 </div>
 
 @endsection

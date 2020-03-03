@@ -17,7 +17,24 @@ class MusikController extends Controller
             }
         }
 
-        return view('index')->with(compact('songs'));
+        $cant = $this->contador();
+
+        return view('index')->with(compact('songs', 'cant'));
+    }
+
+    public function contador()
+    {
+        $jsonString = file_get_contents(base_path('contador.json'));
+        $contador = json_decode($jsonString, true);
+
+        $cantidad = $contador['cantidad'] + 1;
+
+        $contador['cantidad'] = $cantidad;
+
+        $updateJson = json_encode($contador);
+        file_put_contents(base_path('contador.json'), $updateJson);
+
+        return $cantidad;
     }
 
     public function create()
