@@ -17,9 +17,7 @@ class MusikController extends Controller
             }
         }
 
-        $cant = $this->contador();
-
-        return view('index')->with(compact('songs', 'cant'));
+        return view('index')->with(compact('songs'));
     }
 
     public function contador()
